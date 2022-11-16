@@ -1,6 +1,7 @@
-import { Box, Container, Stack, Tab, TabTypeMap, Typography } from "@mui/material";
+import { Box, Container, Paper, Stack, Tab, TabTypeMap, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import React, { useState } from "react";
+import { Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
 
 type TabName = "report" | "radar" | "SUS";
 
@@ -12,19 +13,44 @@ const Report = () => {
 	);
 };
 
-const Radar = () => {
+const radarData: any[] = [
+	{ rule: "Consistency", yt: 10, sp: 10, fullMark: 10},
+	{ rule: "Universal", yt: 1, sp: 7, fullMark: 10},
+	{ rule: "Informative", yt: 10, sp: 10, fullMark: 10},
+	{ rule: "Closure", yt: 5, sp: 10, fullMark: 10},
+	{ rule: "Error Prevention", yt: 10, sp: 10, fullMark: 10},
+	{ rule: "Action reversal", yt: 8, sp: 3, fullMark: 10},
+	{ rule: "Control", yt: 8, sp: 8, fullMark: 10},
+	{ rule: "Memory", yt: 10, sp: 10, fullMark: 10},
+];
+
+const RadarTab = () => {
 	return (
-		<Box sx={{ height: "100%", width: "100%" }}>
-			<Typography variant="h1">Radar</Typography>
-		</Box>
+		<Paper sx={{ height: "100%", width: "100%", p: 10 }}>
+			<RadarChart
+				width={500}
+				height={500}
+				data={radarData}
+			>
+				<PolarGrid/>
+				<PolarAngleAxis dataKey="rule"/>
+				<PolarRadiusAxis angle={45} domain={[0, 10]}/>
+				<Radar name="Youtube Music" dataKey="yt" stroke="#FF0000" fill="#FF0000" fillOpacity={0.3}/>
+				<Radar name="Spotify" dataKey="sp" stroke="#1DB954" fill="#1DB954" fillOpacity={0.3}/>
+				<Legend/>
+			</RadarChart>
+		</Paper>
 	);
 };
 
-const SUS = () => {
+const tableRows = [
+];
+
+const SUSTab = () => {
 	return (
-		<Box sx={{ height: "100%", width: "100%" }}>
-			<Typography variant="h1">SUS</Typography>
-		</Box>
+		<Paper sx={{p: 2}}>
+			A
+		</Paper>
 	);
 };
 
@@ -62,8 +88,8 @@ const App = () => {
 					</TabList>
 				</Box>
 				<TabPanel value="report"><Report/></TabPanel>
-				<TabPanel value="radar"><Radar/></TabPanel>
-				<TabPanel value="SUS"><SUS/></TabPanel>
+				<TabPanel value="radar"><RadarTab/></TabPanel>
+				<TabPanel value="SUS"><SUSTab/></TabPanel>
 			</TabContext>
 		</Container>
 	);
