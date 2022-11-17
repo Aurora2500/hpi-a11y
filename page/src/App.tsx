@@ -1,4 +1,4 @@
-import { Box, Container, Paper, Stack, Tab, Typography } from "@mui/material";
+import { Box, Container, Link, Paper, Stack, Tab, Table, TableBody, TableCell, TableFooter, TableHead, TableRow, Typography } from "@mui/material";
 import { TabContext, TabList, TabPanel } from "@mui/lab";
 import React, { useState } from "react";
 import { Legend, PolarAngleAxis, PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
@@ -74,8 +74,8 @@ const Report = () => {
 				In this analysis, we will study two big websites used for streaming music:
 			</Typography>
 			<ul>
-				<li><Typography variant="body1" component="a" href="https://music.youtube.com">Youtube</Typography></li>
-				<li><Typography variant="body1" component="a" href="https://open.spotify.com">Spotify</Typography></li>
+				<li><Link variant="body1" component="a" href="https://music.youtube.com">Youtube Music</Link></li>
+				<li><Link variant="body1" component="a" href="https://open.spotify.com">Spotify</Link></li>
 			</ul>
 			{reportSections.map(({ header, body }) => (
 				<>
@@ -119,13 +119,49 @@ const RadarTab = () => {
 	);
 };
 
+type TableRow = { aspect: string; score: number; };
+
+const row = (aspect: string, score: number): TableRow => ({ aspect, score });
+
 const tableRows = [
+	row("I think that I would like to use this system frequently", 5),
+	row("I found the system unnecessarily complex", 2),
+	row("I thought the system was easy to use", 5),
+	row("I think that I would need the support of a technical person to be able to use this system", 1),
+	row("I found the various functions in this system were well integrated", 4),
+	row("I thought there was too much inconsistency in this system", 2),
+	row("I would imagine that most people would learn to use this system very quickly", 3),
+	row("I found the system very cumbersome to use", 2),
+	row("I felt very confident using the system", 5),
+	row("I needed to learn a lot of things before I could get going with this system", 1),
 ];
+const SUSScore = tableRows.reduce((acc, { score }, i) => acc + (i % 2 == 0 ? score - 1 : 5 - score), 0) * 2.5;
 
 const SUSTab = () => {
 	return (
 		<Paper sx={{ p: 2 }}>
-			A
+			<Table>
+				<TableHead>
+					<TableRow>
+						<TableCell><Typography variant="h6">Youtube Music</Typography></TableCell>
+						<TableCell>Score</TableCell>
+					</TableRow>
+				</TableHead>
+				<TableBody>
+					{tableRows.map(({ aspect, score }) => (
+						<TableRow key={aspect}>
+							<TableCell>{aspect}</TableCell>
+							<TableCell>{score}</TableCell>
+						</TableRow>
+					))}
+				</TableBody>
+				<TableFooter>
+					<TableRow>
+						<TableCell><Typography variant="h6">SUS Score</Typography></TableCell>
+						<TableCell><Typography variant="h6">{SUSScore}</Typography></TableCell>
+					</TableRow>
+				</TableFooter>
+			</Table>
 		</Paper>
 	);
 };
