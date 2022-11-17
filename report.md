@@ -44,7 +44,7 @@ Finishing with a clear message of what the user has just paid for.
 
 Both sites are fairly good in this regard, as they both use confirmation
 modals for destructive actions,
-for example, when the user wants to remove a song from a playlist
+and in the case of Youtube Music, when it doesn't show a modal, it lets the user to undo the action.
 
 # Permit easy reversal of actions
 
@@ -63,4 +63,6 @@ which fully controls the music being playbacked.
 # Reduce short-term memory load
 
 Both sites are fairly good in this regard.
-Upon opening either site, the last song played is displayed in the playback controller at the bottom, letting the user to continue listening where they stopped in the last session.
+Upon opening either site, the last song played is displayed in the playback controller at the bottom,
+letting the user to continue listening where they stopped in the last session.
+And in adition, the landing sites of both of these web apps 
